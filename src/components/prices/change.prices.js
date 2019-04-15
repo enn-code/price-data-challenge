@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { requestPriceUpdate } from "../../actions/price.actions";
 import { getPrice, getPriceUpdateError } from "../../selectors/price.selectors";
@@ -14,14 +14,21 @@ const ChangePrices = ({
   priceUpdateErrorMessage
 }) => {
   const [priceInput, setPriceInput] = useState(price);
+
+  useEffect(() => {
+    setPriceInput(price);
+  }, [price]);
+
   const handleOnChange = value => {
     setPriceInput(value);
   };
+
   const handleOnClick = () => {
     console.log("handleOnClick");
 
     requestPriceUpdate(priceInput);
   };
+
   return (
     <div>
       <NumericalInput
