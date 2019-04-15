@@ -5,15 +5,50 @@ const priceReducer = (state = {}, action) => {
     case CONSTANTS.FETCH_PRICE_REQUESTED:
       return {
         ...state,
-        isLoading: true
+        currentPrice: {
+          isLoading: true
+        }
       };
     case CONSTANTS.FETCH_PRICE_SUCCEEDED:
       return {
         ...state,
-        isLoading: false,
         currentPrice: {
+          isLoading: false,
           price: action.payload.price,
           currencySymbol: action.payload.currency_symbol
+        }
+      };
+    case CONSTANTS.FETCH_PRICE_FAILED:
+      return {
+        ...state,
+        currentPrice: {
+          isLoading: false,
+          price: state.currentPrice.price,
+          errorMessage: action.errorMessage
+        }
+      };
+
+    case CONSTANTS.UPDATE_PRICE_REQUESTED:
+      return {
+        ...state,
+        updatePrice: {
+          isLoading: true
+        }
+      };
+    case CONSTANTS.UPDATE_PRICE_SUCCEEDED:
+      return {
+        ...state,
+        updatePrice: {
+          isLoading: false,
+          data: action.payload
+        }
+      };
+    case CONSTANTS.UPDATE_PRICE_FAILED:
+      return {
+        ...state,
+        updatePrice: {
+          isLoading: false,
+          errorMessage: action.errorMessage
         }
       };
     default:
