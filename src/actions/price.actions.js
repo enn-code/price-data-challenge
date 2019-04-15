@@ -31,9 +31,11 @@ export const requestPriceUpdate = newPrice => dispatch => {
 
   axios
     .post(`${baseUrl}/price`, {
-      new_price: "100.99"
+      new_price: newPrice
     })
     .then(res => {
+      dispatch(requestPrice());
+
       dispatch({
         type: CONSTANTS.UPDATE_PRICE_SUCCEEDED,
         payload: res.data.data

@@ -1,13 +1,18 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { requestPriceUpdate } from "../../actions/price.actions";
-import { getPrice } from "../../selectors/price.selectors";
+import { getPrice, getPriceUpdateError } from "../../selectors/price.selectors";
 import { getPriceUpdateLoading } from "../../selectors/loading.selectors";
 
 import NumericalInput from "../shared/numerical.input";
 import UpdateButton from "../shared/update.button";
 
-const ChangePrices = ({ price, isPriceUpdateLoading, requestPriceUpdate }) => {
+const ChangePrices = ({
+  price,
+  isPriceUpdateLoading,
+  requestPriceUpdate,
+  priceUpdateErrorMessage
+}) => {
   const [priceInput, setPriceInput] = useState(price);
   const handleOnChange = value => {
     setPriceInput(value);
@@ -23,6 +28,7 @@ const ChangePrices = ({ price, isPriceUpdateLoading, requestPriceUpdate }) => {
         currentValue={priceInput}
         handleOnChange={handleOnChange}
       />
+      {priceUpdateErrorMessage && <p>{priceUpdateErrorMessage}</p>}
       {isPriceUpdateLoading ? (
         "please wait..."
       ) : (
@@ -34,7 +40,8 @@ const ChangePrices = ({ price, isPriceUpdateLoading, requestPriceUpdate }) => {
 
 const mapStateToProps = state => ({
   price: getPrice(state),
-  isPriceUpdateLoading: getPriceUpdateLoading(state)
+  isPriceUpdateLoading: getPriceUpdateLoading(state),
+  priceUpdateErrorMessage: getPriceUpdateError(state)
 });
 
 const mapDispatchToProps = dispatch => ({
