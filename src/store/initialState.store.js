@@ -7,6 +7,9 @@ export const initialState = {
     },
     updatePrice: {
       isLoading: false
+    },
+    occupancyData: {
+      isLoading: false
     }
   }
 };

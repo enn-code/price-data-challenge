@@ -51,6 +51,30 @@ const priceReducer = (state = {}, action) => {
           errorMessage: action.errorMessage
         }
       };
+
+    case CONSTANTS.FETCH_OCCUPANCY_DATA_REQUESTED:
+      return {
+        ...state,
+        occupancyData: {
+          isLoading: true
+        }
+      };
+    case CONSTANTS.FETCH_OCCUPANCY_DATA_SUCCEEDED:
+      return {
+        ...state,
+        occupancyData: {
+          isLoading: false,
+          data: action.payload
+        }
+      };
+    case CONSTANTS.FETCH_OCCUPANCY_DATA_FAILED:
+      return {
+        ...state,
+        occupancyData: {
+          isLoading: false,
+          errorMessage: action.errorMessage
+        }
+      };
     default:
       return state;
   }
